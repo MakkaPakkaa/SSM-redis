@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hry.mapper.WaresMapper">
+<!-- 	<select id="queryWaresByPage" resultType="wares" parameterType="map"> -->
+<!-- 		select * from wares_info limit #{startIndex},#{pageSize} -->
+<!-- 	</select> -->
+	
+	<!-- sql片段 -->
+	<sql id="wares_column">
+	 id,name,price, outline,place, date, expire_date, stock
+	</sql>
+	<select id="queryPage" resultType="com.hry.pojo.Wares" parameterType="map">
+		select <include refid="wares_column"></include> from wares_info
+		<where>
+			<if test="name != null and name != ''">
+				and name like '%${name}%'
+			</if>
+			<if test="outline != null and outline != ''">
+				and outline like '%${outline}%'
+			</if>
+		</where>
+	</select>
+</mapper>
